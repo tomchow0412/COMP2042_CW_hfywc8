@@ -22,7 +22,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class DebugConsole extends JDialog implements WindowListener{
+public class DebugConsole extends JDialog implements WindowListener {
 
     private static final String TITLE = "Debug Console";
 
@@ -33,7 +33,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     private Wall wall;
 
 
-    public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
+    public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard) {
 
         this.wall = wall;
         this.owner = owner;
@@ -41,13 +41,13 @@ public class DebugConsole extends JDialog implements WindowListener{
         initialize();
 
         debugPanel = new DebugPanel(wall);
-        this.add(debugPanel,BorderLayout.CENTER);
+        this.add(debugPanel, BorderLayout.CENTER);
 
 
         this.pack();
     }
 
-    private void initialize(){
+    private void initialize() {
         this.setModal(true);
         this.setTitle(TITLE);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -57,10 +57,10 @@ public class DebugConsole extends JDialog implements WindowListener{
     }
 
 
-    private void setLocation(){
+    private void setLocation() {
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
-        this.setLocation(x,y);
+        this.setLocation(x, y);
     }
 
 
@@ -93,7 +93,7 @@ public class DebugConsole extends JDialog implements WindowListener{
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
         Ball b = wall.ball;
-        debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
+        debugPanel.setValues(b.getSpeedX(), b.getSpeedY());
     }
 
     @Override

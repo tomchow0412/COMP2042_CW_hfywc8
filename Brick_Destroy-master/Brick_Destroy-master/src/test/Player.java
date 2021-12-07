@@ -18,8 +18,6 @@
 package test;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 
 public class Player {
@@ -37,7 +35,7 @@ public class Player {
     private int max;
 
 
-    public Player(Point ballPoint,int width,int height,Rectangle container) {
+    public Player(Point ballPoint, int width, int height, Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
         playerFace = makeRectangle(width, height);
@@ -46,41 +44,41 @@ public class Player {
 
     }
 
-    private Rectangle makeRectangle(int width,int height){
-        Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
-        return  new Rectangle(p,new Dimension(width,height));
+    private Rectangle makeRectangle(int width, int height) {
+        Point p = new Point((int) (ballPoint.getX() - (width / 2)), (int) ballPoint.getY());
+        return new Rectangle(p, new Dimension(width, height));
     }
 
-    public boolean impact(Ball b){
-        return playerFace.contains(b.getPosition()) && playerFace.contains(b.down) ;
+    public boolean impact(Ball b) {
+        return playerFace.contains(b.getPosition()) && playerFace.contains(b.down);
     }
 
-    public void move(){
+    public void move() {
         double x = ballPoint.getX() + moveAmount;
-        if(x < min || x > max)
+        if (x < min || x > max)
             return;
-        ballPoint.setLocation(x,ballPoint.getY());
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        ballPoint.setLocation(x, ballPoint.getY());
+        playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
     }
 
-    public void moveLeft(){
+    public void moveLeft() {
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
-    public void movRight(){
+    public void movRight() {
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
-    public void stop(){
+    public void stop() {
         moveAmount = 0;
     }
 
-    public Shape getPlayerFace(){
-        return  playerFace;
+    public Shape getPlayerFace() {
+        return playerFace;
     }
 
-    public void moveTo(Point p){
+    public void moveTo(Point p) {
         ballPoint.setLocation(p);
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
     }
 }
