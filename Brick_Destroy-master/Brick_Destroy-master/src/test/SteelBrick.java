@@ -58,9 +58,13 @@ public class SteelBrick extends Brick {
     }
 
     public void impact() {
-        if (rnd.nextDouble() < STEEL_PROBABILITY) {
+        if (rndImpacts()) {
             super.impact();
         }
+    }
+
+    private boolean rndImpacts() {
+        return rnd.nextDouble() < STEEL_PROBABILITY;
     }
 
 }

@@ -188,12 +188,20 @@ public class Wall {
             brickCount--;
         } else if (impactBorder()) {
             ball.reverseX();
-        } else if (ball.getPosition().getY() < area.getY()) {
+        } else if (ImpactY()) {
             ball.reverseY();
-        } else if (ball.getPosition().getY() > area.getY() + area.getHeight()) {
+        } else if (ImpactEmpty()) {
             ballCount--;
             ballLost = true;
         }
+    }
+
+    private boolean ImpactY (){
+        return ball.getPosition().getY() < area.getY();
+    }
+
+    private boolean ImpactEmpty(){
+        return ball.getPosition().getY() > area.getY() + area.getHeight();
     }
 
     private boolean impactWall() {

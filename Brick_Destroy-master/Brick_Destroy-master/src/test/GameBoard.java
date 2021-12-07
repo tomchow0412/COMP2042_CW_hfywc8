@@ -354,15 +354,24 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (exitButtonRect != null && showPauseMenu) {
-            if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p))
+
+        if (ShowPauseMenu()) {
+            if (ButtonsRect((MouseEvent) mouseEvent)) {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            else
+            } else
                 this.setCursor(Cursor.getDefaultCursor());
         } else {
             this.setCursor(Cursor.getDefaultCursor());
         }
+    }
+
+    private boolean ShowPauseMenu() {
+        return exitButtonRect != null && showPauseMenu;
+    }
+
+    private boolean ButtonsRect(MouseEvent mouseEvent) {
+        Point p = mouseEvent.getPoint();
+        return exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p);
     }
 
     public void onLostFocus() {

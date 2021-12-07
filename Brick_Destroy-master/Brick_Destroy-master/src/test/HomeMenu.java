@@ -242,11 +242,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (startButton.contains(p)) {
+
+        if (GetStartButt(mouseEvent)) {
             owner.enableGameBoard();
 
-        } else if (menuButton.contains(p)) {
+        } else if (GetMenuButt(mouseEvent)) {
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         }
@@ -254,12 +254,12 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (startButton.contains(p)) {
+
+        if (GetStartButt(mouseEvent)) {
             startClicked = true;
             repaint(startButton.x, startButton.y, startButton.width + 1, startButton.height + 1);
 
-        } else if (menuButton.contains(p)) {
+        } else if (GetMenuButt(mouseEvent)) {
             menuClicked = true;
             repaint(menuButton.x, menuButton.y, menuButton.width + 1, menuButton.height + 1);
         }
@@ -294,11 +294,27 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (startButton.contains(p) || menuButton.contains(p))
+
+        if (GetStartMenuButt(mouseEvent))
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
+
+    }
+
+    private boolean GetStartButt(MouseEvent mouseEvent) {
+        Point p = mouseEvent.getPoint();
+        return startButton.contains(p);
+    }
+
+    private boolean GetMenuButt(MouseEvent mouseEvent) {
+        Point p = mouseEvent.getPoint();
+        return menuButton.contains(p);
+    }
+
+    private boolean GetStartMenuButt(MouseEvent mouseEvent) {
+        Point p = mouseEvent.getPoint();
+        return startButton.contains(p) || menuButton.contains(p);
 
     }
 }
