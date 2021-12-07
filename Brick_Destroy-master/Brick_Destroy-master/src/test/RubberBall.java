@@ -26,19 +26,31 @@ public class RubberBall extends Ball {
 
     private static final int DEF_RADIUS = 10;
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
-    private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
+    private static final Color DEF_BORDER_COLOR = getDefInnerColor().darker().darker();
 
 
     public RubberBall(Point2D center) {
-        super(center, DEF_RADIUS, DEF_RADIUS, DEF_INNER_COLOR, DEF_BORDER_COLOR);
+        super(center, getDefRadius(), getDefRadius(), getDefInnerColor(), getDefBorderColor());
+    }
+
+    public static int getDefRadius() {
+        return DEF_RADIUS;
+    }
+
+    public static Color getDefInnerColor() {
+        return DEF_INNER_COLOR;
+    }
+
+    public static Color getDefBorderColor() {
+        return DEF_BORDER_COLOR;
     }
 
 
     @Override
     protected Shape makeBall(Point2D center, int radiusA, int radiusB) {
 
-        double x = center.getX() - (radiusA / 2);
-        double y = center.getY() - (radiusB / 2);
+        double x = center.getX() - (radiusA >> 1);
+        double y = center.getY() - (radiusB >> 1);
 
         return new Ellipse2D.Double(x, y, radiusA, radiusB);
     }

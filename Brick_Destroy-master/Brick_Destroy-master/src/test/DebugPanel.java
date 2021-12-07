@@ -28,36 +28,33 @@ public class DebugPanel extends JPanel {
     private static final Color DEF_BKG = Color.WHITE;
 
 
-    private JButton skipLevel;
-    private JButton resetBalls;
-
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
-    private Wall wall;
-
     public DebugPanel(Wall wall) {
-
-        this.wall = wall;
 
         initialize();
 
-        skipLevel = makeButton("Skip Level", e -> wall.nextLevel());
-        resetBalls = makeButton("Reset Balls", e -> wall.resetBallCount());
+        JButton skipLevel = makeButton("Skip Level", e -> wall.nextLevel());
+        JButton resetBalls = makeButton("Reset Balls", e -> wall.resetBallCount());
 
-        ballXSpeed = makeSlider(-4, 4, e -> wall.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4, 4, e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+        setBallXSpeed(makeSlider(e -> wall.setBallXSpeed(getBallXSpeed().getValue())));
+        setBallYSpeed(makeSlider(e -> wall.setBallYSpeed(getBallYSpeed().getValue())));
 
         this.add(skipLevel);
         this.add(resetBalls);
 
-        this.add(ballXSpeed);
-        this.add(ballYSpeed);
+        this.add(getBallXSpeed());
+        this.add(getBallYSpeed());
 
     }
 
+    public static Color getDefBkg() {
+        return DEF_BKG;
+    }
+
     private void initialize() {
-        this.setBackground(DEF_BKG);
+        this.setBackground(getDefBkg());
         this.setLayout(new GridLayout(2, 2));
     }
 
@@ -67,8 +64,8 @@ public class DebugPanel extends JPanel {
         return out;
     }
 
-    private JSlider makeSlider(int min, int max, ChangeListener e) {
-        JSlider out = new JSlider(min, max);
+    private JSlider makeSlider(ChangeListener e) {
+        JSlider out = new JSlider(-4, 4);
         out.setMajorTickSpacing(1);
         out.setSnapToTicks(true);
         out.setPaintTicks(true);
@@ -77,8 +74,23 @@ public class DebugPanel extends JPanel {
     }
 
     public void setValues(int x, int y) {
-        ballXSpeed.setValue(x);
-        ballYSpeed.setValue(y);
+        getBallXSpeed().setValue(x);
+        getBallYSpeed().setValue(y);
     }
 
+    public JSlider getBallXSpeed() {
+        return ballXSpeed;
+    }
+
+    public void setBallXSpeed(JSlider ballXSpeed) {
+        this.ballXSpeed = ballXSpeed;
+    }
+
+    public JSlider getBallYSpeed() {
+        return ballYSpeed;
+    }
+
+    public void setBallYSpeed(JSlider ballYSpeed) {
+        this.ballYSpeed = ballYSpeed;
+    }
 }

@@ -27,10 +27,10 @@ public class DebugConsole extends JDialog implements WindowListener {
     private static final String TITLE = "Debug Console";
 
 
-    private JFrame owner;
-    private DebugPanel debugPanel;
-    private GameBoard gameBoard;
-    private Wall wall;
+    private final JFrame owner;
+    private final DebugPanel debugPanel;
+    private final GameBoard gameBoard;
+    private final Wall wall;
 
 
     public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard) {
@@ -41,15 +41,19 @@ public class DebugConsole extends JDialog implements WindowListener {
         initialize();
 
         debugPanel = new DebugPanel(wall);
-        this.add(debugPanel, BorderLayout.CENTER);
+        this.add(getDebugPanel(), BorderLayout.CENTER);
 
 
         this.pack();
     }
 
+    public static String getTITLE() {
+        return TITLE;
+    }
+
     private void initialize() {
         this.setModal(true);
-        this.setTitle(TITLE);
+        this.setTitle(getTITLE());
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.addWindowListener(this);
@@ -58,8 +62,8 @@ public class DebugConsole extends JDialog implements WindowListener {
 
 
     private void setLocation() {
-        int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
-        int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
+        int x = ((getOwner().getWidth() - this.getWidth()) / 2) + getOwner().getX();
+        int y = ((getOwner().getHeight() - this.getHeight()) / 2) + getOwner().getY();
         this.setLocation(x, y);
     }
 
@@ -71,7 +75,7 @@ public class DebugConsole extends JDialog implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent windowEvent) {
-        gameBoard.repaint();
+        getGameBoard().repaint();
     }
 
     @Override
@@ -92,12 +96,29 @@ public class DebugConsole extends JDialog implements WindowListener {
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = wall.ball;
-        debugPanel.setValues(b.getSpeedX(), b.getSpeedY());
+        Ball b = getWall().getBall();
+        getDebugPanel().setValues(b.getSpeedX(), b.getSpeedY());
     }
 
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
 
+    }
+
+    public DebugPanel getDebugPanel() {
+        return debugPanel;
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public Wall getWall() {
+        return wall;
+    }
+
+    @Override
+    public JFrame getOwner() {
+        return owner;
     }
 }

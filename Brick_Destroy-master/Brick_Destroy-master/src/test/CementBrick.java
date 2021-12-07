@@ -8,19 +8,33 @@ import java.awt.geom.Point2D;
 public class CementBrick extends Brick {
 
 
-    private static final String NAME = "Cement Brick";
+    /**
+     * DEF_INNER is the brick between the outer brick.
+     */
     private static final Color DEF_INNER = new Color(147, 147, 147);
     private static final Color DEF_BORDER = new Color(217, 199, 175);
     private static final int CEMENT_STRENGTH = 2;
 
-    private Crack crack;
+    private final Crack crack;
     private Shape brickFace;
 
 
     public CementBrick(Point point, Dimension size) {
-        super(NAME, point, size, DEF_BORDER, DEF_INNER, CEMENT_STRENGTH);
+        super(point, size, getDefBorder(), getDefInner(), getCementStrength());
         crack = new Crack(DEF_CRACK_DEPTH, DEF_STEPS);
-        brickFace = super.brickFace;
+        setBrickFace(super.brickFace);
+    }
+
+    public static Color getDefInner() {
+        return DEF_INNER;
+    }
+
+    public static Color getDefBorder() {
+        return DEF_BORDER;
+    }
+
+    public static int getCementStrength() {
+        return CEMENT_STRENGTH;
     }
 
     @Override
@@ -30,11 +44,11 @@ public class CementBrick extends Brick {
 
     @Override
     public boolean setImpact(Point2D point, int dir) {
-        if (super.isBroken())
+        if (!super.isBroken())
             return false;
         super.impact();
-        if (!super.isBroken()) {
-            crack.makeCrack(point, dir);
+        if (super.isBroken()) {
+            getCrack().makeCrack(point, dir);
             updateBrick();
             return false;
         }
@@ -44,20 +58,32 @@ public class CementBrick extends Brick {
 
     @Override
     public Shape getBrick() {
-        return brickFace;
+        return getBrickFace();
     }
 
     private void updateBrick() {
-        if (!super.isBroken()) {
-            GeneralPath gp = crack.draw();
+        if (super.isBroken()) {
+            GeneralPath gp = getCrack().draw();
             gp.append(super.brickFace, false);
-            brickFace = gp;
+            setBrickFace(gp);
         }
     }
 
     public void repair() {
         super.repair();
-        crack.reset();
-        brickFace = super.brickFace;
+        getCrack().reset();
+        setBrickFace(super.brickFace);
+    }
+
+    public Crack getCrack() {
+        return crack;
+    }
+
+    public Shape getBrickFace() {
+        return brickFace;
+    }
+
+    public void setBrickFace(Shape brickFace) {
+        this.brickFace = brickFace;
     }
 }

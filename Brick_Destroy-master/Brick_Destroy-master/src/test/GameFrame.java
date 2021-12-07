@@ -27,15 +27,15 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
 
-    private GameBoard gameBoard;
-    private HomeMenu homeMenu;
+    private final GameBoard gameBoard;
+    private final HomeMenu homeMenu;
 
     private boolean gaming;
 
     public GameFrame() {
         super();
 
-        gaming = false;
+        setGaming(false);
 
         this.setLayout(new BorderLayout());
 
@@ -43,15 +43,19 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
         homeMenu = new HomeMenu(this, new Dimension(450, 300));
 
-        this.add(homeMenu, BorderLayout.CENTER);
+        this.add(getHomeMenu(), BorderLayout.CENTER);
 
         this.setUndecorated(true);
 
 
     }
 
+    public static String getDefTitle() {
+        return DEF_TITLE;
+    }
+
     public void initialize() {
-        this.setTitle(DEF_TITLE);
+        this.setTitle(getDefTitle());
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         this.autoLocate();
@@ -60,8 +64,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     public void enableGameBoard() {
         this.dispose();
-        this.remove(homeMenu);
-        this.add(gameBoard, BorderLayout.CENTER);
+        this.remove(getHomeMenu());
+        this.add(getGameBoard(), BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
@@ -87,13 +91,29 @@ public class GameFrame extends JFrame implements WindowFocusListener {
             is useful only if the GameBoard as been displayed
             at least once
          */
-        gaming = true;
+        setGaming(true);
     }
 
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
-        if (gaming)
-            gameBoard.onLostFocus();
+        if (isGaming())
+            getGameBoard().onLostFocus();
 
+    }
+
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    public HomeMenu getHomeMenu() {
+        return homeMenu;
+    }
+
+    public boolean isGaming() {
+        return gaming;
+    }
+
+    public void setGaming(boolean gaming) {
+        this.gaming = gaming;
     }
 }

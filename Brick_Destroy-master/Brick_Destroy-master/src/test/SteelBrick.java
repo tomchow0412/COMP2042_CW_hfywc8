@@ -24,19 +24,37 @@ import java.util.Random;
 
 public class SteelBrick extends Brick {
 
-    private static final String NAME = "Steel Brick";
+    /**
+     * the declaration of the brick's color.
+     */
     private static final Color DEF_INNER = new Color(203, 203, 201);
     private static final Color DEF_BORDER = Color.BLACK;
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private Random rnd;
-    private Shape brickFace;
+    private final Random rnd;
+    private final Shape brickFace;
 
     public SteelBrick(Point point, Dimension size) {
-        super(NAME, point, size, DEF_BORDER, DEF_INNER, STEEL_STRENGTH);
+        super(point, size, getDefBorder(), getDefInner(), getSteelStrength());
         rnd = new Random();
         brickFace = super.brickFace;
+    }
+
+    public static Color getDefInner() {
+        return DEF_INNER;
+    }
+
+    public static Color getDefBorder() {
+        return DEF_BORDER;
+    }
+
+    public static int getSteelStrength() {
+        return STEEL_STRENGTH;
+    }
+
+    public static double getSteelProbability() {
+        return STEEL_PROBABILITY;
     }
 
 
@@ -47,14 +65,14 @@ public class SteelBrick extends Brick {
 
     @Override
     public Shape getBrick() {
-        return brickFace;
+        return getBrickFace();
     }
 
     public boolean setImpact(Point2D point, int dir) {
-        if (super.isBroken())
+        if (!super.isBroken())
             return false;
         impact();
-        return super.isBroken();
+        return !super.isBroken();
     }
 
     public void impact() {
@@ -64,7 +82,14 @@ public class SteelBrick extends Brick {
     }
 
     private boolean rndImpacts() {
-        return rnd.nextDouble() < STEEL_PROBABILITY;
+        return getRnd().nextDouble() < getSteelProbability();
     }
 
+    public Random getRnd() {
+        return rnd;
+    }
+
+    public Shape getBrickFace() {
+        return brickFace;
+    }
 }

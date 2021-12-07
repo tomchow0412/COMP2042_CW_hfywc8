@@ -38,25 +38,25 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private static final Color BORDER_COLOR = new Color(200, 8, 21); //Venetian Red
     private static final Color DASH_BORDER_COLOR = new Color(255, 216, 0);//school bus yellow
     private static final Color TEXT_COLOR = new Color(16, 52, 166);//egyptian blue
-    private static final Color CLICKED_BUTTON_COLOR = BG_COLOR.brighter();
+    private static final Color CLICKED_BUTTON_COLOR = getBgColor().brighter();
     private static final Color CLICKED_TEXT = Color.WHITE;
     private static final int BORDER_SIZE = 5;
     private static final float[] DASHES = {12, 6};
 
-    private Rectangle menuFace;
-    private Rectangle startButton;
-    private Rectangle menuButton;
+    private final Rectangle menuFace;
+    private final Rectangle startButton;
+    private final Rectangle menuButton;
 
 
-    private BasicStroke borderStoke;
-    private BasicStroke borderStoke_noDashes;
+    private final BasicStroke borderStoke;
+    private final BasicStroke borderStoke_noDashes;
 
-    private Font greetingsFont;
-    private Font gameTitleFont;
-    private Font creditsFont;
-    private Font buttonFont;
+    private final Font greetingsFont;
+    private final Font gameTitleFont;
+    private final Font creditsFont;
+    private final Font buttonFont;
 
-    private GameFrame owner;
+    private final GameFrame owner;
 
     private boolean startClicked;
     private boolean menuClicked;
@@ -80,15 +80,67 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         startButton = new Rectangle(btnDim);
         menuButton = new Rectangle(btnDim);
 
-        borderStoke = new BasicStroke(BORDER_SIZE, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, DASHES, 0);
-        borderStoke_noDashes = new BasicStroke(BORDER_SIZE, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        borderStoke = new BasicStroke(getBorderSize(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, getDASHES(), 0);
+        borderStoke_noDashes = new BasicStroke(getBorderSize(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 
         greetingsFont = new Font("Noto Mono", Font.PLAIN, 25);
         gameTitleFont = new Font("Noto Mono", Font.BOLD, 40);
         creditsFont = new Font("Monospaced", Font.PLAIN, 10);
-        buttonFont = new Font("Monospaced", Font.PLAIN, startButton.height - 2);
+        buttonFont = new Font("Monospaced", Font.PLAIN, getStartButton().height - 2);
 
 
+    }
+
+    public static String getGREETINGS() {
+        return GREETINGS;
+    }
+
+    public static String getGameTitle() {
+        return GAME_TITLE;
+    }
+
+    public static String getCREDITS() {
+        return CREDITS;
+    }
+
+    public static String getStartText() {
+        return START_TEXT;
+    }
+
+    public static String getMenuText() {
+        return MENU_TEXT;
+    }
+
+    public static Color getBgColor() {
+        return BG_COLOR;
+    }
+
+    public static Color getBorderColor() {
+        return BORDER_COLOR;
+    }
+
+    public static Color getDashBorderColor() {
+        return DASH_BORDER_COLOR;
+    }
+
+    public static Color getTextColor() {
+        return TEXT_COLOR;
+    }
+
+    public static Color getClickedButtonColor() {
+        return CLICKED_BUTTON_COLOR;
+    }
+
+    public static Color getClickedText() {
+        return CLICKED_TEXT;
+    }
+
+    public static int getBorderSize() {
+        return BORDER_SIZE;
+    }
+
+    public static float[] getDASHES() {
+        return DASHES;
     }
 
 
@@ -109,8 +161,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         Color prevColor = g2d.getColor();
         Font prevFont = g2d.getFont();
 
-        double x = menuFace.getX();
-        double y = menuFace.getY();
+        double x = getMenuFace().getX();
+        double y = getMenuFace().getY();
 
         g2d.translate(x, y);
 
@@ -127,18 +179,18 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private void drawContainer(Graphics2D g2d) {
         Color prev = g2d.getColor();
 
-        g2d.setColor(BG_COLOR);
-        g2d.fill(menuFace);
+        g2d.setColor(getBgColor());
+        g2d.fill(getMenuFace());
 
         Stroke tmp = g2d.getStroke();
 
-        g2d.setStroke(borderStoke_noDashes);
-        g2d.setColor(DASH_BORDER_COLOR);
-        g2d.draw(menuFace);
+        g2d.setStroke(getBorderStoke_noDashes());
+        g2d.setColor(getDashBorderColor());
+        g2d.draw(getMenuFace());
 
-        g2d.setStroke(borderStoke);
-        g2d.setColor(BORDER_COLOR);
-        g2d.draw(menuFace);
+        g2d.setStroke(getBorderStoke());
+        g2d.setColor(getBorderColor());
+        g2d.draw(getMenuFace());
 
         g2d.setStroke(tmp);
 
@@ -147,33 +199,33 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     private void drawText(Graphics2D g2d) {
 
-        g2d.setColor(TEXT_COLOR);
+        g2d.setColor(getTextColor());
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D greetingsRect = greetingsFont.getStringBounds(GREETINGS, frc);
-        Rectangle2D gameTitleRect = gameTitleFont.getStringBounds(GAME_TITLE, frc);
-        Rectangle2D creditsRect = creditsFont.getStringBounds(CREDITS, frc);
+        Rectangle2D greetingsRect = getGreetingsFont().getStringBounds(getGREETINGS(), frc);
+        Rectangle2D gameTitleRect = getGameTitleFont().getStringBounds(getGameTitle(), frc);
+        Rectangle2D creditsRect = getCreditsFont().getStringBounds(getCREDITS(), frc);
 
         int sX, sY;
 
-        sX = (int) (menuFace.getWidth() - greetingsRect.getWidth()) / 2;
-        sY = (int) (menuFace.getHeight() / 4);
+        sX = (int) (getMenuFace().getWidth() - greetingsRect.getWidth()) / 2;
+        sY = (int) (getMenuFace().getHeight() / 4);
 
-        g2d.setFont(greetingsFont);
-        g2d.drawString(GREETINGS, sX, sY);
+        g2d.setFont(getGreetingsFont());
+        g2d.drawString(getGREETINGS(), sX, sY);
 
-        sX = (int) (menuFace.getWidth() - gameTitleRect.getWidth()) / 2;
+        sX = (int) (getMenuFace().getWidth() - gameTitleRect.getWidth()) / 2;
         sY += (int) gameTitleRect.getHeight() * 1.1;//add 10% of String height between the two strings
 
-        g2d.setFont(gameTitleFont);
-        g2d.drawString(GAME_TITLE, sX, sY);
+        g2d.setFont(getGameTitleFont());
+        g2d.drawString(getGameTitle(), sX, sY);
 
-        sX = (int) (menuFace.getWidth() - creditsRect.getWidth()) / 2;
+        sX = (int) (getMenuFace().getWidth() - creditsRect.getWidth()) / 2;
         sY += (int) creditsRect.getHeight() * 1.1;
 
-        g2d.setFont(creditsFont);
-        g2d.drawString(CREDITS, sX, sY);
+        g2d.setFont(getCreditsFont());
+        g2d.drawString(getCREDITS(), sX, sY);
 
 
     }
@@ -182,60 +234,60 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT, frc);
-        Rectangle2D mTxtRect = buttonFont.getStringBounds(MENU_TEXT, frc);
+        Rectangle2D txtRect = getButtonFont().getStringBounds(getStartText(), frc);
+        Rectangle2D mTxtRect = getButtonFont().getStringBounds(getMenuText(), frc);
 
-        g2d.setFont(buttonFont);
+        g2d.setFont(getButtonFont());
 
-        int x = (menuFace.width - startButton.width) / 2;
-        int y = (int) ((menuFace.height - startButton.height) * 0.8);
+        int x = (getMenuFace().width - getStartButton().width) / 2;
+        int y = (int) ((getMenuFace().height - getStartButton().height) * 0.8);
 
-        startButton.setLocation(x, y);
+        getStartButton().setLocation(x, y);
 
-        x = (int) (startButton.getWidth() - txtRect.getWidth()) / 2;
-        y = (int) (startButton.getHeight() - txtRect.getHeight()) / 2;
+        x = (int) (getStartButton().getWidth() - txtRect.getWidth()) / 2;
+        y = (int) (getStartButton().getHeight() - txtRect.getHeight()) / 2;
 
-        x += startButton.x;
-        y += startButton.y + (startButton.height * 0.9);
+        x += getStartButton().x;
+        y += getStartButton().y + (getStartButton().height * 0.9);
 
 
-        if (startClicked) {
+        if (isStartClicked()) {
             Color tmp = g2d.getColor();
-            g2d.setColor(CLICKED_BUTTON_COLOR);
-            g2d.draw(startButton);
-            g2d.setColor(CLICKED_TEXT);
-            g2d.drawString(START_TEXT, x, y);
+            g2d.setColor(getClickedButtonColor());
+            g2d.draw(getStartButton());
+            g2d.setColor(getClickedText());
+            g2d.drawString(getStartText(), x, y);
             g2d.setColor(tmp);
         } else {
-            g2d.draw(startButton);
-            g2d.drawString(START_TEXT, x, y);
+            g2d.draw(getStartButton());
+            g2d.drawString(getStartText(), x, y);
         }
 
-        x = startButton.x;
-        y = startButton.y;
+        x = getStartButton().x;
+        y = getStartButton().y;
 
         y *= 1.2;
 
-        menuButton.setLocation(x, y);
+        getMenuButton().setLocation(x, y);
 
 
-        x = (int) (menuButton.getWidth() - mTxtRect.getWidth()) / 2;
-        y = (int) (menuButton.getHeight() - mTxtRect.getHeight()) / 2;
+        x = (int) (getMenuButton().getWidth() - mTxtRect.getWidth()) / 2;
+        y = (int) (getMenuButton().getHeight() - mTxtRect.getHeight()) / 2;
 
-        x += menuButton.x;
-        y += menuButton.y + (startButton.height * 0.9);
+        x += getMenuButton().x;
+        y += getMenuButton().y + (getStartButton().height * 0.9);
 
-        if (menuClicked) {
+        if (isMenuClicked()) {
             Color tmp = g2d.getColor();
 
-            g2d.setColor(CLICKED_BUTTON_COLOR);
-            g2d.draw(menuButton);
-            g2d.setColor(CLICKED_TEXT);
-            g2d.drawString(MENU_TEXT, x, y);
+            g2d.setColor(getClickedButtonColor());
+            g2d.draw(getMenuButton());
+            g2d.setColor(getClickedText());
+            g2d.drawString(getMenuText(), x, y);
             g2d.setColor(tmp);
         } else {
-            g2d.draw(menuButton);
-            g2d.drawString(MENU_TEXT, x, y);
+            g2d.draw(getMenuButton());
+            g2d.drawString(getMenuText(), x, y);
         }
 
     }
@@ -244,7 +296,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mouseClicked(MouseEvent mouseEvent) {
 
         if (GetStartButt(mouseEvent)) {
-            owner.enableGameBoard();
+            getOwner().enableGameBoard();
 
         } else if (GetMenuButt(mouseEvent)) {
             System.out.println("Goodbye " + System.getProperty("user.name"));
@@ -256,23 +308,23 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mousePressed(MouseEvent mouseEvent) {
 
         if (GetStartButt(mouseEvent)) {
-            startClicked = true;
-            repaint(startButton.x, startButton.y, startButton.width + 1, startButton.height + 1);
+            setStartClicked(true);
+            repaint(getStartButton().x, getStartButton().y, getStartButton().width + 1, getStartButton().height + 1);
 
         } else if (GetMenuButt(mouseEvent)) {
-            menuClicked = true;
-            repaint(menuButton.x, menuButton.y, menuButton.width + 1, menuButton.height + 1);
+            setMenuClicked(true);
+            repaint(getMenuButton().x, getMenuButton().y, getMenuButton().width + 1, getMenuButton().height + 1);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-        if (startClicked) {
-            startClicked = false;
-            repaint(startButton.x, startButton.y, startButton.width + 1, startButton.height + 1);
-        } else if (menuClicked) {
-            menuClicked = false;
-            repaint(menuButton.x, menuButton.y, menuButton.width + 1, menuButton.height + 1);
+        if (isStartClicked()) {
+            setStartClicked(false);
+            repaint(getStartButton().x, getStartButton().y, getStartButton().width + 1, getStartButton().height + 1);
+        } else if (isMenuClicked()) {
+            setMenuClicked(false);
+            repaint(getMenuButton().x, getMenuButton().y, getMenuButton().width + 1, getMenuButton().height + 1);
         }
     }
 
@@ -304,17 +356,73 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     private boolean GetStartButt(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        return startButton.contains(p);
+        return getStartButton().contains(p);
     }
 
     private boolean GetMenuButt(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        return menuButton.contains(p);
+        return getMenuButton().contains(p);
     }
 
     private boolean GetStartMenuButt(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
-        return startButton.contains(p) || menuButton.contains(p);
+        return getStartButton().contains(p) || getMenuButton().contains(p);
 
+    }
+
+    public Rectangle getMenuFace() {
+        return menuFace;
+    }
+
+    public Rectangle getStartButton() {
+        return startButton;
+    }
+
+    public Rectangle getMenuButton() {
+        return menuButton;
+    }
+
+    public BasicStroke getBorderStoke() {
+        return borderStoke;
+    }
+
+    public BasicStroke getBorderStoke_noDashes() {
+        return borderStoke_noDashes;
+    }
+
+    public Font getGreetingsFont() {
+        return greetingsFont;
+    }
+
+    public Font getGameTitleFont() {
+        return gameTitleFont;
+    }
+
+    public Font getCreditsFont() {
+        return creditsFont;
+    }
+
+    public Font getButtonFont() {
+        return buttonFont;
+    }
+
+    public GameFrame getOwner() {
+        return owner;
+    }
+
+    public boolean isStartClicked() {
+        return startClicked;
+    }
+
+    public void setStartClicked(boolean startClicked) {
+        this.startClicked = startClicked;
+    }
+
+    public boolean isMenuClicked() {
+        return menuClicked;
+    }
+
+    public void setMenuClicked(boolean menuClicked) {
+        this.menuClicked = menuClicked;
     }
 }

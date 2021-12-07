@@ -30,17 +30,17 @@ public class Wall {
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
 
-    private Random rnd;
-    private Rectangle area;
+    private final Random rnd;
+    private final Rectangle area;
 
-    Brick[] bricks;
-    Ball ball;
-    Player player;
+    private Brick[] bricks;
+    private Ball ball;
+    private Player player;
 
-    private Brick[][] levels;
+    private final Brick[][] levels;
     private int level;
 
-    private Point startPoint;
+    private final Point startPoint;
     private int brickCount;
     private int ballCount;
     private boolean ballLost;
@@ -52,30 +52,34 @@ public class Wall {
         levels = makeLevels(drawArea, brickCount, lineCount, brickDimensionRatio);
         level = 0;
 
-        ballCount = 3;
-        ballLost = false;
+        setBallCount(3);
+        setBallLost(false);
 
         rnd = new Random();
 
         makeBall(ballPos);
         int speedX, speedY;
         do {
-            speedX = rnd.nextInt(5) - 2;
+            speedX = getRnd().nextInt(5) - 2;
         } while (speedX == 0);
         do {
-            speedY = -rnd.nextInt(3);
+            speedY = -getRnd().nextInt(3);
         } while (speedY == 0);
 
-        ball.setSpeed(speedX, speedY);
+        getBall().setSpeed(speedX, speedY);
 
-        player = new Player((Point) ballPos.clone(), 150, 10, drawArea);
+        setPlayer(new Player((Point) ballPos.clone(), 150, 10, drawArea));
 
         area = drawArea;
 
 
     }
 
-    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type) {
+    public static int getLevelsCount() {
+        return LEVELS_COUNT;
+    }
+
+    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -103,7 +107,7 @@ public class Wall {
             x = (line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x, y);
-            tmp[i] = makeBrick(p, brickSize, type);
+            tmp[i] = makeBrick(p, brickSize, Wall.CLAY);
         }
 
         for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
@@ -161,12 +165,12 @@ public class Wall {
     }
 
     private void makeBall(Point2D ballPos) {
-        ball = new RubberBall(ballPos);
+        setBall(new RubberBall(ballPos));
     }
 
     private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio) {
-        Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY);
+        Brick[][] tmp = new Brick[getLevelsCount()][];
+        tmp[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio);
         tmp[1] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, CEMENT);
         tmp[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, STEEL);
         tmp[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL, CEMENT);
@@ -174,62 +178,66 @@ public class Wall {
     }
 
     public void move() {
-        player.move();
-        ball.move();
+        getPlayer().move();
+        getBall().move();
     }
 
     public void findImpacts() {
-        if (player.impact(ball)) {
-            ball.reverseY();
+        if (getPlayer().impact(getBall())) {
+            getBall().reverseY();
         } else if (impactWall()) {
             /*for efficiency reverse is done into method impactWall
              * because for every brick program checks for horizontal and vertical impacts
              */
-            brickCount--;
+            setBrickCount(getBrickCount() - 1);
         } else if (impactBorder()) {
-            ball.reverseX();
+            getBall().reverseX();
         } else if (ImpactY()) {
-            ball.reverseY();
+            getBall().reverseY();
         } else if (ImpactEmpty()) {
-            ballCount--;
-            ballLost = true;
+            setBallCount(getBallCount() - 1);
+            setBallLost(true);
         }
     }
 
     private boolean ImpactY (){
-        return ball.getPosition().getY() < area.getY();
+        return getBall().getPosition().getY() < getArea().getY();
     }
 
     private boolean ImpactEmpty(){
-        return ball.getPosition().getY() > area.getY() + area.getHeight();
+        return getBall().getPosition().getY() > getArea().getY() + getArea().getHeight();
     }
 
     private boolean impactWall() {
-        for (Brick b : bricks) {
-            switch (b.findImpact(ball)) {
+        for (Brick b : getBricks()) {
+            switch (b.findImpact(getBall())) {
                 //Vertical Impact
-                case Brick.UP_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.down, Brick.Crack.UP);
-                case Brick.DOWN_IMPACT:
-                    ball.reverseY();
-                    return b.setImpact(ball.up, Brick.Crack.DOWN);
+                case Brick.UP_IMPACT -> {
+                    getBall().reverseY();
+                    return b.setImpact(getBall().getDown(), Brick.Crack.UP);
+                }
+                case Brick.DOWN_IMPACT -> {
+                    getBall().reverseY();
+                    return b.setImpact(getBall().getUp(), Brick.Crack.DOWN);
+                }
 
                 //Horizontal Impact
-                case Brick.LEFT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.right, Brick.Crack.RIGHT);
-                case Brick.RIGHT_IMPACT:
-                    ball.reverseX();
-                    return b.setImpact(ball.left, Brick.Crack.LEFT);
+                case Brick.LEFT_IMPACT -> {
+                    getBall().reverseX();
+                    return b.setImpact(getBall().getRight(), Brick.Crack.RIGHT);
+                }
+                case Brick.RIGHT_IMPACT -> {
+                    getBall().reverseX();
+                    return b.setImpact(getBall().getLeft(), Brick.Crack.LEFT);
+                }
             }
         }
         return false;
     }
 
     private boolean impactBorder() {
-        Point2D p = ball.getPosition();
-        return ((p.getX() < area.getX()) || (p.getX() > (area.getX() + area.getWidth())));
+        Point2D p = getBall().getPosition();
+        return ((p.getX() < getArea().getX()) || (p.getX() > (getArea().getX() + getArea().getWidth())));
     }
 
     public int getBrickCount() {
@@ -245,38 +253,38 @@ public class Wall {
     }
 
     public void ballReset() {
-        player.moveTo(startPoint);
-        ball.moveTo(startPoint);
+        getPlayer().moveTo(getStartPoint());
+        getBall().moveTo(getStartPoint());
         int speedX, speedY;
         do {
-            speedX = rnd.nextInt(5) - 2;
+            speedX = getRnd().nextInt(5) - 2;
         } while (speedX == 0);
         do {
-            speedY = -rnd.nextInt(3);
+            speedY = -getRnd().nextInt(3);
         } while (speedY == 0);
 
-        ball.setSpeed(speedX, speedY);
-        ballLost = false;
+        getBall().setSpeed(speedX, speedY);
+        setBallLost(false);
     }
 
     public void wallReset() {
-        for (Brick b : bricks)
+        for (Brick b : getBricks())
             b.repair();
-        brickCount = bricks.length;
-        ballCount = 3;
+        setBrickCount(getBricks().length);
+        setBallCount(3);
     }
 
     public boolean ballEnd() {
-        return ballCount == 0;
+        return getBallCount() == 0;
     }
 
     public boolean isDone() {
-        return brickCount == 0;
+        return getBrickCount() == 0;
     }
 
     public void nextLevel() {
-        bricks = levels[level++];
-        this.brickCount = bricks.length;
+        setBricks(levels[level++]);
+        this.setBrickCount(getBricks().length);
     }
 
     public boolean hasLevel() {
@@ -284,33 +292,74 @@ public class Wall {
     }
 
     public void setBallXSpeed(int s) {
-        ball.setXSpeed(s);
+        getBall().setXSpeed(s);
     }
 
     public void setBallYSpeed(int s) {
-        ball.setYSpeed(s);
+        getBall().setYSpeed(s);
     }
 
     public void resetBallCount() {
-        ballCount = 3;
+        setBallCount(3);
     }
 
     private Brick makeBrick(Point point, Dimension size, int type) {
-        Brick out;
-        switch (type) {
-            case CLAY:
-                out = new ClayBrick(point, size);
-                break;
-            case STEEL:
-                out = new SteelBrick(point, size);
-                break;
-            case CEMENT:
-                out = new CementBrick(point, size);
-                break;
-            default:
-                throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
-        }
-        return out;
+        return switch (type) {
+            case CLAY -> new ClayBrick(point, size);
+            case STEEL -> new SteelBrick(point, size);
+            case CEMENT -> new CementBrick(point, size);
+            default -> throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
+        };
     }
 
+    /**
+     * rnd means random.
+     */
+    public Random getRnd() {
+        return rnd;
+    }
+
+    public Rectangle getArea() {
+        return area;
+    }
+
+    public Brick[] getBricks() {
+        return bricks;
+    }
+
+    public void setBricks(Brick[] bricks) {
+        this.bricks = bricks;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Point getStartPoint() {
+        return startPoint;
+    }
+
+    public void setBrickCount(int brickCount) {
+        this.brickCount = brickCount;
+    }
+
+    public void setBallCount(int ballCount) {
+        this.ballCount = ballCount;
+    }
+
+    public void setBallLost(boolean ballLost) {
+        this.ballLost = ballLost;
+    }
 }
