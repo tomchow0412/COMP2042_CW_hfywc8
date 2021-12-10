@@ -258,7 +258,7 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
         g2d.drawString(getPAUSE(), x, y);
 
-        x = this.getWidth() / 8;
+        x = this.getWidth() / 4;
         y = this.getHeight() / 4;
 
 

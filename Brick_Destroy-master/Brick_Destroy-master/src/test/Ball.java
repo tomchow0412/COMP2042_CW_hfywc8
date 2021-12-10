@@ -28,11 +28,15 @@ abstract public class Ball {
         setLeft(new Point2D.Double());
         setRight(new Point2D.Double());
 
-        getUp().setLocation(center.getX(), center.getY() - (radiusB / 2));
-        getDown().setLocation(center.getX(), center.getY() + (radiusB / 2));
+        getUp().setLocation(center.getX(),
+                center.getY() - (radiusB / 2));
+        getDown().setLocation(center.getX(),
+                center.getY() + (radiusB / 2));
 
-        getLeft().setLocation(center.getX() - (radiusA / 2), center.getY());
-        getRight().setLocation(center.getX() + (radiusA / 2), center.getY());
+        getLeft().setLocation(center.getX() - (radiusA / 2),
+                center.getY());
+        getRight().setLocation(center.getX() + (radiusA / 2),
+                center.getY());
 
 
         setBallFace(makeBall(center, radiusA, radiusB));
