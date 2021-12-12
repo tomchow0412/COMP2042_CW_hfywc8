@@ -20,7 +20,7 @@ package test;
 import java.awt.*;
 
 
-public class Player {
+class Player {
 
 
     private static final Color BORDER_COLOR = Color.GREEN.darker().darker();

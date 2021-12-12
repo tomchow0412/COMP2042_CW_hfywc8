@@ -22,7 +22,7 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 
-public class Wall {
+class Wall {
 
     private static final int LEVELS_COUNT = 4;
 

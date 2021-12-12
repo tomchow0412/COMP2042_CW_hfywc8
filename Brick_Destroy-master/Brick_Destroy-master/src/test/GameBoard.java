@@ -23,7 +23,7 @@ import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
 
-public class GameBoard extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
+class GameBoard extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
 
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";

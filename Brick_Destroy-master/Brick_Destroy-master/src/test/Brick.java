@@ -7,9 +7,13 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by filippo on 04/09/16.
+ * This class is for creating the collision of brick in the game.
+ * @author Chow Wen Jun
+ *  @category Software Maintenance
+ *  @version 15.0.2
+ *  @since 12/12/2021
  */
-abstract public class Brick {
+abstract class Brick {
 
     public static final int DEF_CRACK_DEPTH = 1, DEF_STEPS = 35;
 

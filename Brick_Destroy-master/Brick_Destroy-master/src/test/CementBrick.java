@@ -10,6 +10,8 @@ public class CementBrick extends Brick {
 
     /**
      * DEF_INNER is the brick between the outer brick.
+     * CementBrick is a brick thicker than normal brick which requires
+     * few collisions to break it.
      */
     private static final Color DEF_INNER = new Color(147, 147, 147);
     private static final Color DEF_BORDER = new Color(217, 199, 175);

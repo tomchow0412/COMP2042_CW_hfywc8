@@ -22,7 +22,7 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 
-public class SteelBrick extends Brick {
+class SteelBrick extends Brick {
 
     /**
      * the declaration of the brick's color.

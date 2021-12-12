@@ -5,9 +5,14 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
 /**
- * Created by filippo on 04/09/16.
+ * This class is for creating the movement of the ball in brick breaker.
+ *
+ * @author Chow Wen Jun
+ * @category Software Maintenance
+ * @version 15.0.2
+ * @since 12/12/2021
  */
-abstract public class Ball {
+abstract class Ball {
 
     private Shape ballFace;
 
