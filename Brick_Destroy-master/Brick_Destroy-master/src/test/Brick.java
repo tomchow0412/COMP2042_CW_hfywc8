@@ -231,8 +231,6 @@ abstract public class Brick {
         strength--;
         broken = (strength == 0);
     }
-
-
 }
 
 

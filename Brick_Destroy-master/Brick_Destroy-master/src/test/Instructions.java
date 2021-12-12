@@ -3,50 +3,47 @@ package test;
 import javax.swing.*;
 import java.awt.*;
 
-public class Instructions extends JFrame{
+public class Instructions extends JFrame {
 
     private static final int FRAME_WIDTH = 600;
     private static final int FRAME_HEIGHT = 450;
-    JLabel label;
-    JLabel label2;
-    JLabel label3;
-    JLabel label4;
-    JFrame frame = new JFrame();
-    JPanel panel = new JPanel();
+    private JLabel label;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
+    private JFrame frame = new JFrame();
+    private JPanel panel = new JPanel();
 
 
-    Instructions(){
+    Instructions() {
 
-        frame.setTitle("Instructions");
-        frame.setSize(getFrameWidth(),getFrameHeight());
-        frame.setVisible(true);
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER,200,0));
-        frame.add(panel);
+        getFrame().setTitle("Instructions");
+        getFrame().setSize(getFrameWidth(), getFrameHeight());
+        getFrame().setVisible(true);
+        getFrame().setLayout(new FlowLayout(FlowLayout.CENTER, 200, 0));
+        getFrame().add(getPanel());
 
-        panel.setPreferredSize(new Dimension(getFrameWidth(),getFrameHeight()));
-        panel.setBackground(Color.ORANGE);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER,200,45));
+        getPanel().setPreferredSize(new Dimension(getFrameWidth(), getFrameHeight()));
+        getPanel().setBackground(Color.ORANGE);
+        getPanel().setLayout(new FlowLayout(FlowLayout.CENTER, 200, 45));
 
-        label = new JLabel ("Press 'A' = Move to the LEFT.");
-        label.setFont(new Font("Jokerman", Font.PLAIN, 23));
-        panel.add(label);
+        setLabel(new JLabel("Press 'A' = Move to the LEFT."));
+        getLabel().setFont(new Font("Jokerman", Font.PLAIN, 23));
+        getPanel().add(getLabel());
 
-        label2 = new JLabel ("Press 'D' = Move to the RIGHT.");
-        label2.setFont(new Font("Jokerman", Font.PLAIN, 23));
-        panel.add(label2);
+        setLabel2(new JLabel("Press 'D' = Move to the RIGHT."));
+        getLabel2().setFont(new Font("Jokerman", Font.PLAIN, 23));
+        getPanel().add(getLabel2());
 
-        label3 = new JLabel ("Press 'SpaceBar' = Start the game.");
-        label3.setFont(new Font("Jokerman", Font.PLAIN, 23));
-        panel.add(label3);
+        setLabel3(new JLabel("Press 'SpaceBar' = Start the game."));
+        getLabel3().setFont(new Font("Jokerman", Font.PLAIN, 23));
+        getPanel().add(getLabel3());
 
-        label4 = new JLabel ("Press 'Alt+Shift+F1' = To Access settings.");
-        label4.setFont(new Font("Jokerman", Font.PLAIN, 23));
-        panel.add(label4);
-
-
+        setLabel4(new JLabel("Press 'Alt+Shift+F1' = To Access settings."));
+        getLabel4().setFont(new Font("Jokerman", Font.PLAIN, 23));
+        getPanel().add(getLabel4());
 
     }
-
 
 
     public static int getFrameWidth() {
@@ -57,4 +54,51 @@ public class Instructions extends JFrame{
         return FRAME_HEIGHT;
     }
 
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+
+    public JLabel getLabel2() {
+        return label2;
+    }
+
+    public void setLabel2(JLabel label2) {
+        this.label2 = label2;
+    }
+
+    public JLabel getLabel3() {
+        return label3;
+    }
+
+    public void setLabel3(JLabel label3) {
+        this.label3 = label3;
+    }
+
+    public JLabel getLabel4() {
+        return label4;
+    }
+
+    public void setLabel4(JLabel label4) {
+        this.label4 = label4;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
 }
