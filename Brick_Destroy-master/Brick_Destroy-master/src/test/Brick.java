@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class is for creating the collision of brick in the game.
- * @author Chow Wen Jun
+ * @author hauru
  *  @category Software Maintenance
  *  @version 15.0.2
  *  @since 12/12/2021
@@ -20,6 +20,9 @@ abstract class Brick {
     public static final int UP_IMPACT = 100, DOWN_IMPACT = 200, LEFT_IMPACT = 300, RIGHT_IMPACT = 400;
 
 
+    /**
+     * initializing for making the brick cracks.
+     */
     public class Crack {
 
         private static final int CRACK_SECTIONS = 3;
@@ -51,6 +54,10 @@ abstract class Brick {
             crack.reset();
         }
 
+        /**
+         * @param point defining the impact, start and end point.
+         * @param direction
+         */
         protected void makeCrack(Point2D point, int direction) {
             Rectangle bounds = Brick.this.brickFace.getBounds();
 
@@ -141,6 +148,12 @@ abstract class Brick {
 
         }
 
+        /**
+         * @param from to get the direction of collision.
+         * @param to estimate the direction should go to.
+         * @param direction randomly assign the direction.
+         * @return ball returns if does not collide.
+         */
         private Point makeRandomPoint(Point from, Point to, int direction) {
 
             Point out = new Point();
@@ -205,6 +218,10 @@ abstract class Brick {
     }
 
 
+    /**
+     * @param b ball impacts to things.
+     * @return return -1 whenever doesn't impact anything.
+     */
     public final int findImpact(Ball b) {
         if (broken)
             return 0;
@@ -231,6 +248,9 @@ abstract class Brick {
         strength = fullStrength;
     }
 
+    /**
+     * Brick will disappear when ever the ball collides with the brick.
+     */
     public void impact() {
         strength--;
         broken = (strength == 0);

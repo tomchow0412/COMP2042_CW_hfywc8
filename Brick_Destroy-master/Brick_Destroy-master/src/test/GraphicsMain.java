@@ -20,6 +20,9 @@ package test;
 import java.awt.*;
 
 
+/**
+ * the main of the project.
+ */
 public abstract class GraphicsMain {
 
     public static void main(String[] args) {

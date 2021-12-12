@@ -35,6 +35,13 @@ class Player {
     private final int max;
 
 
+    /**
+     * Player that could press A & D to move and bounce the ball.
+     * @param ballPoint this is the ballPoint object.
+     * @param width this is the width object.
+     * @param height this is the height object.
+     * @param container this is the container object.
+     */
     public Player(Point ballPoint, int width, int height, Rectangle container) {
         this.ballPoint = ballPoint;
         setMoveAmount(0);
@@ -56,6 +63,12 @@ class Player {
         return DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * Construct the shape of the player.
+     * @param width this is width object.
+     * @param height this is height object.
+     * @return returns the player.
+     */
     private Rectangle makeRectangle(int width, int height) {
         Point p = new Point((int) (getBallPoint().getX() - (width / 2)), (int) getBallPoint().getY());
         return new Rectangle(p, new Dimension(width, height));

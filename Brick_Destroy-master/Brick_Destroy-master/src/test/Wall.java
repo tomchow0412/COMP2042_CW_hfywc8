@@ -45,6 +45,14 @@ class Wall {
     private int ballCount;
     private boolean ballLost;
 
+    /**
+     * the Wall, the perimeter layout of the screen.
+     * @param drawArea  this is drawArea object.
+     * @param brickCount this is brickCount object.
+     * @param lineCount this is lineCount object.
+     * @param brickDimensionRatio this is the brick layout.
+     * @param ballPos this is the ball position.
+     */
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos) {
 
         this.startPoint = new Point(ballPos);

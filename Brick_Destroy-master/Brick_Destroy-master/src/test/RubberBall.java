@@ -21,6 +21,9 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 
+/**
+ * another shape or the Ball.
+ */
 public class RubberBall extends Ball {
 
 

@@ -26,7 +26,10 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 
-
+/**
+ * Home Menu shows whenever user runs the program.
+ * initializing every object that gonna used.
+ */
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final String GREETINGS = "Welcome to:";
@@ -67,7 +70,11 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean instructionClicked;
 
 
-
+    /**
+     * Construct a frame to Home Menu.
+     * @param owner this is owner object.
+     * @param area this is area object.
+     */
     public HomeMenu(GameFrame owner, Dimension area) {
 
 
@@ -158,6 +165,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         drawMenu((Graphics2D) g);
     }
 
+    /**
+     * drawing the Home Menu layout.
+     * @param g2d this is g2d object.
+     */
     public void drawMenu(Graphics2D g2d) {
 
         drawContainer(g2d);
@@ -185,6 +196,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         g2d.setColor(prevColor);
     }
 
+    /**
+     * drawing the container of the Home Menu.
+     * @param g2d this is g2d object.
+     */
     private void drawContainer(Graphics2D g2d) {
         Color prev = g2d.getColor();
 
@@ -206,6 +221,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         g2d.setColor(prev);
     }
 
+    /**
+     * Drawing the title and other text in the Home Menu
+     * @param g2d this is g2d object.
+     */
     private void drawText(Graphics2D g2d) {
 
         g2d.setColor(getTextColor());
@@ -239,6 +258,10 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     }
 
+    /**
+     * draw the layout of start, instructions and exit button.
+     * @param g2d this is g2d object.
+     */
     private void drawButton(Graphics2D g2d) {
 
         FontRenderContext frc = g2d.getFontRenderContext();

@@ -23,6 +23,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
 
+/**
+ * Game Frame is the bridge between Game Board and Home Menu.
+ * initializing objects.
+ */
 class GameFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
@@ -62,6 +66,9 @@ class GameFrame extends JFrame implements WindowFocusListener {
         this.setVisible(true);
     }
 
+    /**
+     * enabling game board shows out from the home menu.
+     */
     public void enableGameBoard() {
         this.dispose();
         this.remove(getHomeMenu());

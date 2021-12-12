@@ -3,6 +3,9 @@ package test;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Instructions Menu in the Home Menu.
+ */
 public class Instructions extends JFrame {
 
     private static final int FRAME_WIDTH = 600;

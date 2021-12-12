@@ -35,6 +35,10 @@ class SteelBrick extends Brick {
     private final Random rnd;
     private final Shape brickFace;
 
+    /**
+     * @param point this is point object of Steel brick.
+     * @param size this is size object of steel brick.
+     */
     public SteelBrick(Point point, Dimension size) {
         super(point, size, getDefBorder(), getDefInner(), getSteelStrength());
         rnd = new Random();

@@ -23,6 +23,9 @@ import java.awt.event.*;
 import java.awt.font.FontRenderContext;
 
 
+/**
+ *The main game menu.
+ */
 class GameBoard extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
 
     private static final String CONTINUE = "Continue";
@@ -56,12 +59,15 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
     private final DebugConsole debugConsole;
 
 
+    /**
+     * Class for initializing the game functions.
+     * @param owner this is owner object.
+     */
     public GameBoard(JFrame owner) {
         super();
 
         setStrLen(0);
         setShowPauseMenu(false);
-
 
         menuFont = new Font("Monospaced", Font.PLAIN, getTextSize());
 
@@ -150,6 +156,10 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
     }
 
 
+    /**
+     * For painting the screen in the main game menu.
+     * @param g this is g object for graphics use.
+     */
     public void paint(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
@@ -227,6 +237,10 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
         drawPauseMenu(g2d);
     }
 
+    /**
+     * obscureGameBoard is for the Pause Menu whenever user keyPressed the ESC button.
+     * @param g2d this is g2d object.
+     */
     private void obscureGameBoard(Graphics2D g2d) {
 
         Composite tmp = g2d.getComposite();
@@ -242,6 +256,10 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
         g2d.setColor(tmpColor);
     }
 
+    /**
+     * drawing buttons and initializing functions of these buttons in the Pause Menu.
+     * @param g2d this is g2d object.
+     */
     private void drawPauseMenu(Graphics2D g2d) {
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
@@ -311,6 +329,10 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
     public void keyTyped(KeyEvent keyEvent) {
     }
 
+    /**
+     * what to function whenever user click particular key.
+     * @param keyEvent this is keyEvent object.
+     */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
@@ -345,6 +367,10 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
         getWall().getPlayer().stop();
     }
 
+    /**
+     * This is for the Pause Menu button functions.
+     * @param mouseEvent This is mouseEvent object.
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -390,6 +416,10 @@ class GameBoard extends JComponent implements KeyListener, MouseListener, MouseM
 
     }
 
+    /**
+     * whenever user move to a button should show the hand cursor.
+     * @param mouseEvent this is mouseEvent object.
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
 

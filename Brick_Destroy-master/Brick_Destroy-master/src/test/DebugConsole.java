@@ -22,6 +22,11 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * Debug Console which pops up whenever player trigger Alt+Shift+F1 at the same time
+ * to skip the levels or change the movement speed of the ball
+ * using WindowListener to implement in this class.
+ */
 public class DebugConsole extends JDialog implements WindowListener {
 
     private static final String TITLE = "Debug Console";
@@ -33,6 +38,11 @@ public class DebugConsole extends JDialog implements WindowListener {
     private final Wall wall;
 
 
+    /**
+     * @param owner this is owner object in JFrame.
+     * @param wall this is wall object.
+     * @param gameBoard this is gameBoard object.
+     */
     public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard) {
 
         this.wall = wall;
@@ -51,6 +61,9 @@ public class DebugConsole extends JDialog implements WindowListener {
         return TITLE;
     }
 
+    /**
+     * initializing the frame of the dialog.
+     */
     private void initialize() {
         this.setModal(true);
         this.setTitle(getTITLE());
@@ -61,6 +74,9 @@ public class DebugConsole extends JDialog implements WindowListener {
     }
 
 
+    /**
+     * setting the location where the location it should be.
+     */
     private void setLocation() {
         int x = ((getOwner().getWidth() - this.getWidth()) / 2) + getOwner().getX();
         int y = ((getOwner().getHeight() - this.getHeight()) / 2) + getOwner().getY();

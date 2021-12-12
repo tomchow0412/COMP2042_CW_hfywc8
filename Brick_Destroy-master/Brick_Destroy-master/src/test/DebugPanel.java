@@ -23,6 +23,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 
+/**
+ * Debug Panel use for the calculation in Debug Console.
+ */
 public class DebugPanel extends JPanel {
 
     private static final Color DEF_BKG = Color.WHITE;
@@ -31,6 +34,10 @@ public class DebugPanel extends JPanel {
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
 
+    /**
+     * Adding the SKip level function and the Movement Speed of the ball.
+     * @param wall this is wall object.
+     */
     public DebugPanel(Wall wall) {
 
         initialize();
@@ -58,12 +65,23 @@ public class DebugPanel extends JPanel {
         this.setLayout(new GridLayout(2, 2));
     }
 
+    /**
+     * Makes button to get the confirmation of levels or movement of speed they want from player.
+     * @param title this is title object.
+     * @param e this is the action listener object.
+     * @return return out if it doesn't receive anything.
+     */
     private JButton makeButton(String title, ActionListener e) {
         JButton out = new JButton(title);
         out.addActionListener(e);
         return out;
     }
 
+    /**
+     * Slider to let player skip the levels and adjust the ball movement speed.
+     * @param e this is the action listener object.
+     * @return return out if it doesn't receive anything.
+     */
     private JSlider makeSlider(ChangeListener e) {
         JSlider out = new JSlider(-4, 4);
         out.setMajorTickSpacing(1);

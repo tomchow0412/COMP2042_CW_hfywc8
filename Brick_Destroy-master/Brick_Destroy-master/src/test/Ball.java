@@ -7,7 +7,7 @@ import java.awt.geom.RectangularShape;
 /**
  * This class is for creating the movement of the ball in brick breaker.
  *
- * @author Chow Wen Jun
+ * @author hauru
  * @category Software Maintenance
  * @version 15.0.2
  * @since 12/12/2021
@@ -25,6 +25,13 @@ abstract class Ball {
     private int speedX, speedY;
 
 
+    /**
+     * @param center set the ball initial location.
+     * @param radiusA set x location.
+     * @param radiusB set y location.
+     * @param inner set ball's inner color.
+     * @param border set the border color of the ball.
+     */
     public Ball(Point2D center, int radiusA, int radiusB, Color inner, Color border) {
         this.setCenter(center);
 
@@ -103,6 +110,9 @@ abstract class Ball {
         return ballFace;
     }
 
+    /**
+     * @param p construct and initialize the point.
+     */
     public void moveTo(Point p) {
         getCenter().setLocation(p);
 
@@ -114,6 +124,10 @@ abstract class Ball {
         setBallFace(tmp);
     }
 
+    /**
+     * @param width getting the scores of x-axis where it should be located.
+     * @param height getting the score of y-axis where it should be located.
+     */
     private void setPoints(double width, double height) {
         getUp().setLocation(getCenter().getX(), getCenter().getY() - (height / 2));
         getDown().setLocation(getCenter().getX(), getCenter().getY() + (height / 2));

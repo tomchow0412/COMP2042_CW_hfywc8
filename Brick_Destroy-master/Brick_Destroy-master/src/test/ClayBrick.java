@@ -4,7 +4,11 @@ import java.awt.*;
 
 
 /**
- * Created by filippo on 04/09/16.
+ * Clay brick which harder than normal brick but weaker than Cement brick.
+ * @author hauru
+ * @category Software Maintenance
+ * @version 15.0.2
+ * @since 12/12/2021
  */
 public final class ClayBrick extends Brick {
 
@@ -13,6 +17,10 @@ public final class ClayBrick extends Brick {
     private static final int CLAY_STRENGTH = 1;
 
 
+    /**
+     * @param point this is a point object.
+     * @param size this is a size object.
+     */
     public ClayBrick(Point point, Dimension size) {
         super(point, size, getDefBorder(), getDefInner(), getClayStrength());
     }

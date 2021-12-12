@@ -21,6 +21,10 @@ public class CementBrick extends Brick {
     private Shape brickFace;
 
 
+    /**
+     * @param point this is point object.
+     * @param size this is size object to get the size of the cement brick.
+     */
     public CementBrick(Point point, Dimension size) {
         super(point, size, getDefBorder(), getDefInner(), getCementStrength());
         crack = new Crack(DEF_CRACK_DEPTH, DEF_STEPS);
