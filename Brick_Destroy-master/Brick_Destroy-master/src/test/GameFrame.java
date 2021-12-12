@@ -116,4 +116,5 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     public void setGaming(boolean gaming) {
         this.gaming = gaming;
     }
+
 }

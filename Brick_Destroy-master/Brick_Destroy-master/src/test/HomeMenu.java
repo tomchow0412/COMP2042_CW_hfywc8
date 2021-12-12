@@ -26,6 +26,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
 
+
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final String GREETINGS = "Welcome to:";
@@ -48,6 +49,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private final Rectangle startButton;
     private final Rectangle menuButton;
     private final Rectangle instructionButton;
+    private boolean showInstructionMenu;
 
 
     private final BasicStroke borderStoke;
@@ -65,7 +67,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean instructionClicked;
 
 
+
     public HomeMenu(GameFrame owner, Dimension area) {
+
 
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -74,7 +78,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         this.addMouseMotionListener(this);
 
         this.owner = owner;
-
 
         menuFace = new Rectangle(new Point(0, 0), area);
         this.setPreferredSize(area);
@@ -91,6 +94,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         gameTitleFont = new Font("Castellar", Font.BOLD, 40);
         creditsFont = new Font("Brush Script MT", Font.PLAIN, 15);
         buttonFont = new Font("Winkle", Font.PLAIN, getStartButton().height - 2);
+
 
 
     }
@@ -153,7 +157,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void paint(Graphics g) {
         drawMenu((Graphics2D) g);
     }
-
 
     public void drawMenu(Graphics2D g2d) {
 
@@ -325,7 +328,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
         if (GetStartButt(mouseEvent)) {
             getOwner().enableGameBoard();
 
@@ -333,8 +335,18 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             System.out.println("Goodbye " + System.getProperty("user.name"));
             System.exit(0);
         } else if (GetInstructionButt(mouseEvent)) {
-            getOwner().enableInstructionMenu();
+            Instructions instructions = new Instructions();
         }
+    }
+
+    private boolean ShowInstructionMenu() { return getInstructionButton() != null & isShowInstructionMenu(); }
+
+    public boolean isShowInstructionMenu() {
+        return showInstructionMenu;
+    }
+
+    public void setShowInstructionMenu(boolean showInstructionMenu) {
+        this.showInstructionMenu = showInstructionMenu;
     }
 
     @Override
@@ -386,7 +398,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
 
-        if (GetAllButt(mouseEvent))
+        if (GetAllButt(mouseEvent) || ShowInstructionMenu())
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
@@ -467,6 +479,8 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     }
 
     public boolean isInstructionClicked() {
+        setShowInstructionMenu(!isShowInstructionMenu());
+        repaint();
         return instructionClicked;
     }
 
@@ -481,5 +495,4 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void setMenuClicked(boolean menuClicked) {
         this.menuClicked = menuClicked;
     }
-
 }
