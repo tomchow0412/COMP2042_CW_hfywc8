@@ -14,11 +14,11 @@ public class Instructions extends JFrame {
     private JLabel label2;
     private JLabel label3;
     private JLabel label4;
-    private JFrame frame = new JFrame();
-    private JPanel panel = new JPanel();
+    private final JFrame frame = new JFrame();
+    private final JPanel panel = new JPanel();
 
 
-    Instructions() {
+    public Instructions() {
 
         getFrame().setTitle("Instructions");
         getFrame().setSize(getFrameWidth(), getFrameHeight());
@@ -93,15 +93,7 @@ public class Instructions extends JFrame {
         return frame;
     }
 
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
-
     public JPanel getPanel() {
         return panel;
-    }
-
-    public void setPanel(JPanel panel) {
-        this.panel = panel;
     }
 }
